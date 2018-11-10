@@ -1,27 +1,32 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { WithStream } from './WithStream';
 
-class App extends Component {
+type TAppProps = {
+
+}
+
+type TAppState = {
+  isActive: boolean;
+}
+
+class App extends Component<TAppProps, TAppState> {
+  readonly state = { isActive: false}
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div className="App"> 
+        <body>
+          {this.state.isActive ? <WithStream count={10} period={300}/> : <WithStream count={1} period={1000}/>}
+          <button onClick={this.changeActive}>PUSH ME!</button>
+        </body>
       </div>
-    );
+      );
+    }
+
+  private changeActive = () => {
+    this.setState({ isActive: !this.state.isActive})
   }
 }
 
