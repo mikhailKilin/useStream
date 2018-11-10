@@ -38,10 +38,11 @@ const RawWithStream = (props: TWithStream): JSX.Element => {
 
     return intervalCount$.pipe(combineLatest(actions$)).pipe(map(([count, actions]) => ({ count, actions})));
   }, {count: 1, actions:{ resetCounter: constUndefined }});
+
   return (
     <div>
       <div>{count}</div>
-      <button onClick={actions.resetCounter}>reset counter</button>
+      <button onClick={actions.resetCounter}>Reset counter</button>
     </div>
   );
 };

@@ -19,7 +19,7 @@ class App extends Component<TAppProps, TAppState> {
       <div className="App"> 
         <body>
           {this.state.isActive ? <WithStream count={10} period={300}/> : <WithStream count={1} period={1000}/>}
-          <button onClick={this.changeActive}>PUSH ME!</button>
+          <button onClick={this.changeActive}>Switch stream</button>
         </body>
       </div>
       );
