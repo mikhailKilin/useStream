@@ -7,6 +7,7 @@ type TWithStream = {
   count: number;
   period: number;
 };
+
 const constUndefined = () => { };
 
 const RawWithStream = (props: TWithStream): JSX.Element => {

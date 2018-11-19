@@ -18,7 +18,6 @@
     "strictNullChecks": true,
     "strictFunctionTypes": true,
     "strictPropertyInitialization": true,
-    "noImplicitThis": true,
     "noImplicitReturns": true
   },
   "include": [
