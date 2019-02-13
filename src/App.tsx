@@ -15,14 +15,12 @@ class App extends Component<TAppProps, TAppState> {
 
   render() {
     return (
-      <div className="App"> 
-        <body>
-          {this.state.isActive ? <WithStream count={10} period={300}/> : <WithStream count={1} period={1000}/>}
-          <button onClick={this.changeActive}>Switch stream</button>
-        </body>
-      </div>
-      );
-    }
+    <div className="App"> 
+      {this.state.isActive ? <WithStream count={10} period={300}/> : <WithStream count={0} period={1000}/>}
+      <button onClick={this.changeActive}>Switch stream</button>
+    </div>
+  );
+}
 
   private changeActive = () => {
     this.setState({ isActive: !this.state.isActive})
