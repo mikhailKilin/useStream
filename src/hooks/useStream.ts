@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { of, Observable } from "rxjs";
+import { useEffect, useState, useMemo } from "react";
+import { Observable, BehaviorSubject } from "rxjs";
 
 const rawUseStream = <T extends object, R extends object>(
   props: T,
@@ -7,19 +7,26 @@ const rawUseStream = <T extends object, R extends object>(
   defaultProps: R
 ) => {
   const [state, setState] = useState(defaultProps);
+
+  const memoizedSubj = useMemo(() => {
+    return new BehaviorSubject<T>(props);
+  }, []);
+
+  useEffect(() => {
+    memoizedSubj.next(props)
+  }, [props]);
+
   useEffect(
     () => {
-      const subscribedStream$ = of(props)
-        .pipe(piping)
-        .subscribe(subscribedData => {
-          setState(Object.assign(state, subscribedData));
-        });
-
+      const effect$ = memoizedSubj.pipe(piping).subscribe(subscribedData => {
+        setState(Object.assign(state, subscribedData));
+      });
+      
       return () => {
-        subscribedStream$.unsubscribe();
+        effect$.unsubscribe();
       };
     },
-    [props]
+    []
   );
 
   return state;
